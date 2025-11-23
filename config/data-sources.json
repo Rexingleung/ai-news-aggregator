@@ -1,0 +1,87 @@
+[
+  {
+    "id": "techcrunch-ai",
+    "name": "TechCrunch AI",
+    "enabled": true,
+    "url": "https://techcrunch.com/category/artificial-intelligence/",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article.post-block",
+      "titleSelector": "h2.post-block__title",
+      "linkSelector": "a.post-block__title__link",
+      "dateSelector": "time.river-byline__time"
+    },
+    "updateInterval": 3600000,
+    "category": "AI News"
+  },
+  {
+    "id": "openai-blog",
+    "name": "OpenAI Blog",
+    "enabled": true,
+    "url": "https://openai.com/news/",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article",
+      "titleSelector": "h3",
+      "linkSelector": "a"
+    },
+    "updateInterval": 3600000,
+    "category": "AI Research"
+  },
+  {
+    "id": "anthropic-news",
+    "name": "Anthropic News",
+    "enabled": true,
+    "url": "https://www.anthropic.com/news",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article",
+      "titleSelector": "h2, h3",
+      "linkSelector": "a"
+    },
+    "updateInterval": 3600000,
+    "category": "AI Research"
+  },
+  {
+    "id": "huggingface-blog",
+    "name": "Hugging Face Blog",
+    "enabled": true,
+    "url": "https://huggingface.co/blog",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article",
+      "titleSelector": "h2",
+      "linkSelector": "a"
+    },
+    "updateInterval": 3600000,
+    "category": "AI Tools"
+  },
+  {
+    "id": "mit-ai-news",
+    "name": "MIT AI News",
+    "enabled": true,
+    "url": "https://news.mit.edu/topic/artificial-intelligence2",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article",
+      "titleSelector": "h3",
+      "linkSelector": "a"
+    },
+    "updateInterval": 3600000,
+    "category": "AI Research"
+  },
+  {
+    "id": "google-ai-blog",
+    "name": "Google AI Blog",
+    "enabled": true,
+    "url": "https://blog.google/technology/ai/",
+    "type": "html",
+    "scrapeConfig": {
+      "articleSelector": "article",
+      "titleSelector": "h3",
+      "linkSelector": "a"
+    },
+    "updateInterval": 3600000,
+    "category": "AI Research"
+  }
+]

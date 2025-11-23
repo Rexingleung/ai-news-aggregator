@@ -1,36 +1,226 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI 资讯聚合器
 
-## Getting Started
+一个基于 Next.js 15 的现代化 AI 资讯聚合平台，自动从主流网站获取 AI 相关资讯，并使用 AI 进行智能分析和摘要。
 
-First, run the development server:
+## ✨ 特性
+
+- 🚀 **Next.js 15**: 使用最新的 Next.js App Router
+- 🤖 **AI 驱动**: 使用 OpenAI API 进行内容分析和摘要生成
+- 🔧 **高度可配置**: JSON 配置文件管理数据源，易于扩展
+- 📱 **响应式设计**: 支持各种设备和屏幕尺寸
+- 🔄 **智能缓存**: 自动缓存数据，减少不必要的网络请求
+- 🎨 **现代 UI**: 使用 Tailwind CSS 构建美观的用户界面
+- 🔍 **搜索和过滤**: 支持按分类、标签搜索文章
+- ⚙️ **配置管理**: 内置管理页面，可视化管理数据源
+
+## 🏗️ 技术栈
+
+- **框架**: Next.js 15 (App Router)
+- **语言**: TypeScript
+- **样式**: Tailwind CSS
+- **数据抓取**: Cheerio + Axios
+- **AI**: OpenAI API
+- **验证**: Zod
+- **日期处理**: date-fns
+
+## 📦 数据源
+
+当前支持以下主流 AI 资讯网站：
+
+- TechCrunch AI
+- OpenAI Blog
+- Anthropic News
+- Hugging Face Blog
+- MIT AI News
+- Google AI Blog
+
+## 🚀 快速开始
+
+### 前置要求
+
+- Node.js 18+ 
+- npm 或 yarn
+
+### 安装
+
+1. **克隆仓库**
+
+```bash
+git clone https://github.com/yourusername/ai-news-aggregator.git
+cd ai-news-aggregator
+```
+
+2. **安装依赖**
+
+```bash
+npm install
+```
+
+3. **配置环境变量**
+
+```bash
+cp .env.example .env.local
+```
+
+编辑 `.env.local` 文件，添加你的 OpenAI API Key（可选）：
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+> **注意**: OpenAI API Key 是可选的。如果不配置，系统会使用基础的关键词提取功能。
+
+4. **运行开发服务器**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 生产构建
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📖 使用指南
 
-To learn more about Next.js, take a look at the following resources:
+### 主页
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+访问主页查看最新的 AI 资讯：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 使用搜索框按标题搜索文章
+- 使用分类下拉菜单过滤不同类型的文章
+- 点击"刷新数据"按钮获取最新内容
 
-## Deploy on Vercel
+### 配置管理
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+访问 `/admin` 页面管理数据源配置：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 查看所有配置的数据源
+- 启用/禁用特定数据源
+- 查看数据源详细信息
+
+## ⚙️ 配置
+
+### 添加新数据源
+
+编辑 `config/data-sources.json` 文件添加新的数据源：
+
+```json
+{
+  "id": "unique-source-id",
+  "name": "数据源名称",
+  "enabled": true,
+  "url": "https://example.com/ai-news",
+  "type": "html",
+  "scrapeConfig": {
+    "articleSelector": "article.post",
+    "titleSelector": "h2.title",
+    "linkSelector": "a.link",
+    "dateSelector": "time"
+  },
+  "updateInterval": 3600000,
+  "category": "AI News"
+}
+```
+
+### 配置字段说明
+
+- `id`: 唯一标识符
+- `name`: 数据源显示名称
+- `enabled`: 是否启用该数据源
+- `url`: 目标网站 URL
+- `type`: 数据源类型 (`html`, `rss`, `api`)
+- `scrapeConfig`: 抓取配置
+  - `articleSelector`: 文章元素选择器
+  - `titleSelector`: 标题选择器
+  - `linkSelector`: 链接选择器
+  - `dateSelector`: 日期选择器
+- `updateInterval`: 更新间隔（毫秒）
+- `category`: 文章分类
+
+## 🔧 扩展开发
+
+### 项目结构
+
+```
+ai-news-aggregator/
+├── app/                    # Next.js App Router 页面
+│   ├── api/               # API 路由
+│   │   ├── articles/     # 文章 API
+│   │   └── sources/      # 数据源 API
+│   ├── admin/            # 管理页面
+│   └── page.tsx          # 主页
+├── components/            # React 组件
+├── config/               # 配置文件
+│   └── data-sources.json # 数据源配置
+├── lib/                  # 工具库
+│   ├── ai-service.ts    # AI 分析服务
+│   └── scraper.ts       # 网页抓取服务
+└── types/               # TypeScript 类型定义
+```
+
+### 添加新的数据抓取类型
+
+在 `lib/scraper.ts` 中添加新的抓取方法：
+
+```typescript
+private async scrapeNewType(source: DataSourceConfig): Promise<Article[]> {
+  // 实现新的抓取逻辑
+}
+```
+
+### 自定义 AI 分析
+
+修改 `lib/ai-service.ts` 中的 `analyzeArticle` 方法来自定义 AI 分析逻辑。
+
+## 🚢 部署
+
+### Vercel (推荐)
+
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. 配置环境变量
+4. 部署
+
+### Docker
+
+```bash
+# 构建镜像
+docker build -t ai-news-aggregator .
+
+# 运行容器
+docker run -p 3000:3000 -e OPENAI_API_KEY=your_key ai-news-aggregator
+```
+
+## 🛠️ 后续优化建议
+
+- [ ] 添加数据库持久化（PostgreSQL/MongoDB）
+- [ ] 实现 RSS 订阅功能
+- [ ] 添加用户认证和个性化推荐
+- [ ] 实现文章收藏和标记功能
+- [ ] 添加邮件通知功能
+- [ ] 支持更多数据源类型
+- [ ] 添加全文搜索（Elasticsearch）
+- [ ] 实现定时任务自动更新
+- [ ] 添加数据分析和可视化
+- [ ] 支持多语言国际化
+
+## 📝 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 📧 联系
+
+如有问题或建议，请提交 Issue。
+
+---
+
+**注意**: 本项目仅用于学习和研究目的。请遵守目标网站的 robots.txt 和使用条款，合理控制抓取频率。
